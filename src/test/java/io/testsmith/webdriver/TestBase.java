@@ -34,6 +34,7 @@ public abstract class TestBase {
     @BeforeMethod
     @Parameters(value = {"seleniumBrowser", "environment"})
     public void setup(@Optional("chrome") String browser, @Optional("local") String environment) throws MalformedURLException {
+        //hier is een if
         if (Environment.valueOf(environment.toUpperCase()).equals(Environment.LOCAL)) {
             switch (Browser.valueOf(browser.toUpperCase())) {
                 case CHROME:
