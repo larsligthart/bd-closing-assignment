@@ -3,11 +3,14 @@ package io.testsmith.webdriver;
 import io.testsmith.webdriver.pages.HomePage;
 import io.testsmith.webdriver.pages.SearchForVisaPage;
 import io.testsmith.webdriver.pages.VisaApplicationPage;
+import io.testsmith.webdriver.pages.VisaConfirmationPage;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.LocalDateTime;
 
-public class Exercises extends TestBase {
+public class
+Exercises extends TestBase {
 
     @Test
     public void applyForVisa() {
@@ -33,5 +36,7 @@ public class Exercises extends TestBase {
 
         Assert.assertTrue(checkmark);
     }
+
+
 
 }
