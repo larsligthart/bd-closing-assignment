@@ -14,8 +14,15 @@ public class Exercises extends TestBase {
                 .acceptCookies()
                 .selectMenuItem("Visa");
 
-        new SearchForVisaPage(getDriver())
-                .setCountryOfOriginTo("American Samoa");
+        LocalDateTime travelDay = LocalDateTime.now().plusWeeks(3);
+
+        new SearchForVisaPage((getDriver()))
+                .fillVisumFormAndSubmit(
+                        "American Samoa",
+                        "Belgium",
+                        travelDay
+                );
+
 
         Thread.sleep(5000);
 
