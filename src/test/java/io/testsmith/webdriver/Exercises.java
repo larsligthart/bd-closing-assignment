@@ -25,10 +25,11 @@ public class Exercises extends TestBase {
                         travelDay
                 );
 
+        new VisaApplicationPage(getDriver())
+                .fillRequiredFieldsVisaFormAndSubmit("Jan","Test","jantest@test.nl","0612345678")
+        ;
 
         Thread.sleep(5000);
-
-        new VisaApplicationPage(getDriver());
     }
 
 }
