@@ -5,6 +5,8 @@ import io.testsmith.webdriver.pages.SearchForVisaPage;
 import io.testsmith.webdriver.pages.VisaApplicationPage;
 import org.testng.annotations.Test;
 
+import java.time.LocalDateTime;
+
 public class Exercises extends TestBase {
 
     @Test
