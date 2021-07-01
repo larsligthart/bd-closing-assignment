@@ -83,13 +83,13 @@ public class VisaApplicationPage extends AbstractPageBase {
         return this;
     }
 
-    public VisaApplicationPage fillRequiredFieldsVisaFormAndSubmit(String firstName, String lastName, String email, String phoneNumber) {
+    public VisaConfirmationPage fillRequiredFieldsVisaFormAndSubmit(String firstName, String lastName, String email, String phoneNumber) {
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
         setEmailConfirm(email);
         setPhoneNumber(phoneNumber);
         clickSubmitButton();
-        return this;
+        return new VisaConfirmationPage(this.driver);
     }
 }

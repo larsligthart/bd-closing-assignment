@@ -76,12 +76,12 @@ public class SearchForVisaPage extends AbstractPageBase {
         return this;
     }
 
-    public SearchForVisaPage fillVisumFormAndSubmit(String originCountry, String destination, LocalDateTime date) {
+    public VisaApplicationPage fillVisumFormAndSubmit(String originCountry, String destination, LocalDateTime date) {
         this.setCountryTo(originCountry, "Origin")
                 .setCountryTo(destination, "Destination")
                 .setDateTo(date)
                 .clickSubmitButton();
 
-        return this;
+        return new VisaApplicationPage(this.driver);
     }
 }

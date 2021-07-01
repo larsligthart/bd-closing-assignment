@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class Exercises extends TestBase {
 
     @Test
-    public void applyForVisa() throws InterruptedException {
+    public void applyForVisa() {
 
         new HomePage(getDriver())
                 .acceptCookies()
@@ -18,18 +18,20 @@ public class Exercises extends TestBase {
 
         LocalDateTime travelDay = LocalDateTime.now().plusWeeks(3);
 
-        new SearchForVisaPage((getDriver()))
+        boolean checkmark = new SearchForVisaPage((getDriver()))
                 .fillVisumFormAndSubmit(
                         "American Samoa",
                         "Belgium",
                         travelDay
-                );
+                )
+                .fillRequiredFieldsVisaFormAndSubmit(
+                        "Jan",
+                        "Test",
+                        "jantest@test.nl",
+                        "0612345678"
+                ).isCheckMarkVisibility();
 
-        new VisaApplicationPage(getDriver())
-                .fillRequiredFieldsVisaFormAndSubmit("Jan","Test","jantest@test.nl","0612345678")
-        ;
-
-        Thread.sleep(5000);
+        Assert.assertTrue(checkmark);
     }
 
 }
