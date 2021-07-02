@@ -47,8 +47,11 @@ public class Exercises {
          * Perform a GET to https://restful-booker.herokuapp.com/booking/<your_booking_id>
          * and check that the status code equals 200
          */
-
-        given().when().then();
+        given()
+                .when()
+                .get("/booking/"+ createdBookingID)
+                .then()
+                .assertThat().statusCode(200);
     }
 
     @Test
@@ -60,7 +63,11 @@ public class Exercises {
          * 'additionalneeds' equals 'Breakfast'
          */
 
-        given().when().then();
+        given()
+                .when()
+                .get("/booking/"+ createdBookingID)
+                .then()
+                .assertThat().body("additionalneeds", Matchers.is("Breakfast"));
     }
 
     @Test
@@ -76,10 +83,12 @@ public class Exercises {
 
         Booking booking = given()
                         .when()
-                        .get("https://restful-booker.herokuapp.com/booking/23")
+                        .get("/booking/"+ createdBookingID)
+                        .then()
+                        .extract()
                         .as(Booking.class);
 
-        Assert.assertEquals("Roy", booking.getFirstName());
+        Assert.assertEquals("Johan", booking.getFirstName());
     }
 
     @Test
@@ -108,7 +117,13 @@ public class Exercises {
         int bookingId =
                 given()
                         .contentType(ContentType.JSON)
-                        .when().post().then().extract().path("");
+                        .body(booking)
+                        .when()
+                        .post("/booking")
+                        .then()
+                        .assertThat().statusCode(200)
+                        .extract().path("bookingid");
+
 
         /**
          * Use that value as a path
@@ -119,7 +134,14 @@ public class Exercises {
          * You don't need to create or modify the Booking class yourself
          */
 
-        given().when().then();
+         Booking createdBooking = given()
+                .when()
+                .get("/booking/"+bookingId)
+                .then()
+                .extract()
+                .as(Booking.class);
+
+        Assert.assertEquals(booking.getLastName(), createdBooking.getLastName());
 
     }
 }
