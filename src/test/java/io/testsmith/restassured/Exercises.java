@@ -1,14 +1,44 @@
 package io.testsmith.restassured;
 
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.testsmith.restassured.models.Booking;
 import io.testsmith.restassured.models.BookingDates;
+import org.hamcrest.Matchers;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 
 public class Exercises {
+    private int createdBookingID;
+
+    @BeforeClass
+    public void setup() {
+        RestAssured.baseURI = "https://restful-booker.herokuapp.com/";
+        RestAssured.port = 443;
+
+        String bodyJson = "{\n" +
+                " \"firstname\" : \"Johan\",\n" +
+                " \"lastname\" : \"Philipsen\",\n" +
+                " \"totalprice\" : 150,\n" +
+                " \"depositpaid\" : true,\n" +
+                " \"bookingdates\" : {\n" +
+                " \"checkin\" : \"2018-01-01\",\n" +
+                " \"checkout\" : \"2019-01-01\"\n" +
+                " },\n" +
+                " \"additionalneeds\" : \"Breakfast\"\n" +
+                "}\n";
+        createdBookingID = given()
+                .contentType(ContentType.JSON)
+                .body(bodyJson)
+                .when()
+                .post("/booking")
+                .then()
+                .assertThat().statusCode(200)
+                .extract().path("bookingid");
+    }
 
     @Test
     public void getBooking_checkStatusCode_shouldReturnHttp200() {
@@ -44,9 +74,7 @@ public class Exercises {
          * is equal to your supplied first name.
          */
 
-        Booking booking =
-
-                given()
+        Booking booking = given()
                         .when()
                         .get("https://restful-booker.herokuapp.com/booking/23")
                         .as(Booking.class);
@@ -78,7 +106,6 @@ public class Exercises {
          */
 
         int bookingId =
-
                 given()
                         .contentType(ContentType.JSON)
                         .when().post().then().extract().path("");
